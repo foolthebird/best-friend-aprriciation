@@ -67,7 +67,7 @@
             margin-bottom: 40px;
         }
 
-        /* Polaroid Gallery */
+        /* Polaroid Gallery Styling */
         .polaroid {
             background: white;
             padding: 15px 15px 40px 15px;
@@ -86,16 +86,23 @@
             z-index: 10;
         }
 
+        /* Fixed Image Sizing Logic */
         .polaroid-img {
             width: 100%;
-            height: 200px;
+            height: 250px; /* Fixed height for consistency */
             background-color: #eee;
+            overflow: hidden; /* Hide overflow */
+            border: 1px solid #ddd;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-style: italic;
-            color: #999;
-            border: 1px solid #ddd;
+        }
+
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This makes images fill the space without stretching */
+            display: block;
         }
 
         .card-caption {
@@ -209,19 +216,25 @@
             <div class="row mt-4">
                 <div class="col-md-4 col-sm-6">
                     <div class="polaroid">
-                        <div class="polaroid-img"><img src="marion/our happy moment.jpeg" alt="moments laughing"></div>
+                        <div class="polaroid-img">
+                            <img src="marion/best laughs.jpeg" alt="moments laughing">
+                        </div>
                         <p class="card-caption">The best laughs</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="polaroid">
-                        <div class="polaroid-img"><img src="marion/Marion adventure.jpeg" alt="marion adventure"></div>
+                        <div class="polaroid-img">
+                            <img src="marion/Marion adventure.jpeg" alt="marion adventure">
+                        </div>
                         <p class="card-caption">Adventure Day</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="polaroid">
-                        <div class="polaroid-img"><img src="marion/Marion Late Nights.jpeg" alt="late night"></div>
+                        <div class="polaroid-img">
+                            <img src="marion/Marion Late Nights.jpeg" alt="late night">
+                        </div>
                         <p class="card-caption">Late Night Talks</p>
                     </div>
                 </div>
@@ -278,13 +291,16 @@
     <script>
         // Floating Hearts Logic
         function createHeart() {
+            const container = document.getElementById('heart-container');
+            if (!container) return;
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
             heart.style.animationDuration = Math.random() * 2 + 3 + 's';
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            document.getElementById('heart-container').appendChild(heart);
+            container.appendChild(heart);
 
             setTimeout(() => {
                 heart.remove();
@@ -310,7 +326,6 @@
             const reasonElement = document.getElementById('current-reason');
             const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
             
-            // Fade out effect
             reasonElement.style.opacity = 0;
             
             setTimeout(() => {
