@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Marion: My Best Friend</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff85a2;
+            --secondary-pink: #f7cad0;
+            --accent-gold: #ffd700;
+            --soft-white: #fffcf9;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--soft-white);
+            color: #444;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ff85a2 0%, #ffafbd 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
+            animation: float 4s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-pink);
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Polaroid Gallery */
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #999;
+            border: 1px solid #ddd;
+        }
+
+        .card-caption {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        /* Interactive Reason Generator */
+        #reason-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #ff5e84;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 94, 132, 0.4);
+            color: white;
+        }
+
+        .certificate-container {
+            border: 10px double var(--primary-pink);
+            padding: 40px;
+            background: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            background: #f8f9fa;
+            color: #888;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            top: -10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div id="heart-container"></div>
+        <div class="container hero-content">
+            <h1>Hi, Marion!</h1>
+            <p>I built this little corner of the internet just for you.</p>
+            <div class="mt-4">
+                <a href="#gallery" class="btn btn-light btn-lg rounded-pill px-5">Explore</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The "Why You're Great" Section -->
+    <section class="py-5" id="reasons">
+        <div class="container">
+            <h2 class="section-title">Why You're My Best Friend</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div id="reason-box">
+                        <h3 id="current-reason" class="mb-4">Click the button to see why you're awesome!</h3>
+                        <div>
+                            <button onclick="generateReason()" class="btn btn-custom">Magic Button ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Gallery -->
+    <section class="py-5 bg-light" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Favorite Moments</h2>
+            <div class="row mt-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="polaroid">
+                        <div class="polaroid-img">📸 Your Photo Here</div>
+                        <p class="card-caption">The best laughs</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="polaroid">
+                        <div class="polaroid-img"><img src="marion/Marion adventure.jpeg" alt="marion adventure"></div>
+                        <p class="card-caption">Adventure Day</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="polaroid">
+                        <div class="polaroid-img"><img src="marion/Marion Late Nights.jpeg" alt="late night"></div>
+                        <p class="card-caption">Late Night Talks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Official Certificate -->
+    <section class="py-5">
+        <div class="container">
+            <div class="certificate-container shadow-lg">
+                <h4 class="text-uppercase tracking-widest" style="letter-spacing: 5px;">Certificate of Awesome</h4>
+                <h2 class="my-4" style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--primary-pink);">Marion</h2>
+                <p class="lead">Is officially recognized as the</p>
+                <h3 class="fw-bold text-dark">WORLD'S BEST FRIEND</h3>
+                <hr class="my-4 mx-auto" style="width: 50%;">
+                <p>Awarded for being supportive, hilarious, and overall incredible.</p>
+                <div class="mt-5 d-flex justify-content-around">
+                    <div>
+                        <p class="mb-0"><u>February 2024</u></p>
+                        <small>DATE</small>
+                    </div>
+                    <div>
+                        <p class="mb-0" style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">Your Best Friend</p>
+                        <small>SIGNED</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Box -->
+    <section class="py-5 bg-white">
+        <div class="container text-center">
+            <h2 class="section-title">A Little Note</h2>
+            <p class="col-lg-8 mx-auto lead" style="line-height: 2;">
+                Dear Marion, thank you for being the person I can always count on. 
+                Whether we're doing something exciting or just hanging out, 
+                everything is better with you around. I'm so lucky to have you in my life!
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Made with ❤️ just for Marion</p>
+            <p><small>&copy; 2024 Besties Forever</small></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Floating Hearts Logic
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.getElementById('heart-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Reason Generator Logic
+        const reasons = [
+            "You always know how to make me laugh! 😂",
+            "You're an amazing listener. 👂✨",
+            "Your energy is contagious! ⚡",
+            "You give the best advice. 🧠",
+            "You're literally the kindest person I know. 🌸",
+            "We have the best inside jokes. 🙊",
+            "You're always there when things get tough. 💪",
+            "Your taste in music/movies is top-tier! 🍿",
+            "Because you're uniquely, wonderfully YOU! 🌟"
+        ];
+
+        function generateReason() {
+            const reasonElement = document.getElementById('current-reason');
+            const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+            
+            // Fade out effect
+            reasonElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                reasonElement.innerText = randomReason;
+                reasonElement.style.opacity = 1;
+                reasonElement.style.transition = 'opacity 0.5s ease';
+                triggerConfetti();
+            }, 300);
+        }
+
+        // Simple Confetti effect
+        function triggerConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${(Math.random() - 0.5) * 200}px, 100vh, 0) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>
